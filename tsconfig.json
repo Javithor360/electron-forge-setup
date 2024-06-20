@@ -1,0 +1,29 @@
+{ 
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true
+  },
+  "include": [ 
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./src/types/**/*.ts"
+   ],
+  "exclude": [ 
+    "node_modules", "./dist", "./build/pgsql/**"
+   ]
+}
