@@ -11,3 +11,10 @@
   @tailwind components;
   @tailwind utilities;
 }
+
+.mention-highlight {
+  background-color: yellow; /* O el color que prefieras */
+  font-weight: bold;
+  padding: 2px 4px;
+  border-radius: 3px;
+}

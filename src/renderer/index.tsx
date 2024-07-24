@@ -5,6 +5,8 @@ import { createRoot } from 'react-dom/client';
 import App from '../components/App';
 import { PrimeReactProvider } from 'primereact/api';
 
+import 'primeicons/primeicons.css';
+
 const Root = (): React.ReactElement => {
     return (
         <React.StrictMode>

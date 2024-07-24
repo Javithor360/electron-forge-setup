@@ -18,6 +18,12 @@ const Sidebar = () => {
             case 'child1-3':
                 navigate('/draggable');
                 break;
+            case 'child1-4':
+                navigate('/mention');  
+                break;
+            case 'child1-5':
+                navigate('/mention-explorer-menu');  
+                break;
             default:
                 break;
         }
@@ -41,6 +47,14 @@ const Sidebar = () => {
                         {
                             key: 'child1-3',
                             label: 'Draggable Elements',
+                        },
+                        {
+                            key: 'child1-4',
+                            label: 'Mention Explorer',
+                        },
+                        {
+                            key: 'child1-5',
+                            label: 'Mention Explorer Menu'
                         }
                     ]
                 },

@@ -4,6 +4,8 @@ import Index from './Index'
 import Layout from './common/Layout'
 import DraggableTabMenu from './DraggableTabMenu'
 import DraggableElements from './DraggableElements'
+import MentionSample from './MentionSample'
+import MentionMenu from './MentionMenu'
 
 const App = () => {
     return (
@@ -13,6 +15,8 @@ const App = () => {
                     <Route path='/index' element={<Index />} />
                     <Route path='/test' element={<DraggableTabMenu />} />
                     <Route path='/draggable' element={<DraggableElements />} />
+                    <Route path='/mention' element={<MentionSample />} />
+                    <Route path='/mention-explorer-menu' element={<MentionMenu />} />
                 </Route>
             </Routes>
         </HashRouter>
