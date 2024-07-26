@@ -1,17 +1,18 @@
 import React from 'react';
 
-import { HashRouter, Route, Routes } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
-import Index from '../components/Index';
+
+import App from '../components/App';
+import { PrimeReactProvider } from 'primereact/api';
+
+import 'primeicons/primeicons.css';
 
 const Root = (): React.ReactElement => {
     return (
         <React.StrictMode>
-            <HashRouter>
-                <Routes>
-                    <Route path="/" element={<Index />} />
-                </Routes>
-            </HashRouter>
+            <PrimeReactProvider>
+                <App />
+            </PrimeReactProvider>
         </React.StrictMode>
     )
 }
