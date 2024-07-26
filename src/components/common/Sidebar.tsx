@@ -24,6 +24,9 @@ const Sidebar = () => {
             case 'child1-5':
                 navigate('/mention-explorer-menu');  
                 break;
+            case 'child2-1':
+                navigate('/custom-mention');
+                break;
             default:
                 break;
         }
@@ -58,6 +61,17 @@ const Sidebar = () => {
                         }
                     ]
                 },
+                {
+                    key: 'parent2',
+                    label: 'Extra',
+                    children: [
+                        {
+                            key: 'child2-1',
+                            label: 'Custom Mention',
+                            icon: 'pi pi-fw pi-file'
+                        }
+                    ]
+                }
                 // {
                 //     key: 'parent2',
                 //     label: 'Parent 2',

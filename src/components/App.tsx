@@ -6,6 +6,7 @@ import DraggableTabMenu from './DraggableTabMenu'
 import DraggableElements from './DraggableElements'
 import MentionSample from './MentionSample'
 import MentionMenu from './MentionMenu'
+import CustomMention from './Extra/CustomMention'
 
 const App = () => {
     return (
@@ -17,6 +18,7 @@ const App = () => {
                     <Route path='/draggable' element={<DraggableElements />} />
                     <Route path='/mention' element={<MentionSample />} />
                     <Route path='/mention-explorer-menu' element={<MentionMenu />} />
+                    <Route path='/custom-mention' element={<CustomMention />} />
                 </Route>
             </Routes>
         </HashRouter>
