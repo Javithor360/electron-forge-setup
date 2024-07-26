@@ -1,4 +1,5 @@
 import { InputTextarea } from 'primereact/inputtextarea';
+import { MenuItem } from 'primereact/menuitem';
 import { TieredMenu } from 'primereact/tieredmenu';
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 
@@ -6,6 +7,8 @@ const CustomMention = () => {
     const prevValueRef = useRef<string>('');
     const tieredMenuRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLTextAreaElement>(null);
+
+    const lastClickTimeRef = useRef<number>(0);
     
     const [menuVisible, setMenuVisible] = useState<boolean>(false);
     const [menuPosition, setMenuPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
@@ -118,23 +121,62 @@ const CustomMention = () => {
         }
     };
 
+    const insertMention = useCallback((mentionText: string) => {
+        const input = inputRef.current;
+        if (input) {
+            const cursorPosition = input.selectionStart ?? 0;
+            const textBeforeCursor = input.value.substring(0, cursorPosition);
+            const textAfterCursor = input.value.substring(cursorPosition);
+            const newText = `${textBeforeCursor}${mentionText} ${textAfterCursor}`;
+            input.value = newText;
+            input.focus(); // Set focus back to the input
+            setMenuVisible(false);
+        }
+    }, []);
+
+    const handleMenuClick = useCallback((item: MenuItem, isParent: boolean) => {
+        const currentTime = new Date().getTime();
+        if (isParent) {
+            if (currentTime - lastClickTimeRef.current < 300) {
+                // Double click detected
+                insertMention(item.label as string);
+            }
+            lastClickTimeRef.current = currentTime;
+        } else {
+            // Not a parent item, insert immediately
+            insertMention(item.label as string);
+        }
+    }, [insertMention]);
+
     const items = [
         {
             label: 'Database1',
             icon: 'pi pi-fw pi-sitemap',
-            data:  { id: 'sample_database_id1' },
+            command: () => handleMenuClick({ label: 'Database1' }, true),
             items: [
-                { label: 'Table1', icon: 'pi pi-fw pi-table', items: [{ label: 'Column1', icon: 'pi pi-fw pi-database', data: { id: 'sample_column_id1' }}, { label: 'Column2', icon: 'pi pi-fw pi-database', data: { id: 'sample_column_id2' }}] },
-                { label: 'Table2', icon: 'pi pi-fw pi-table', items: [{ label: 'Column3', icon: 'pi pi-fw pi-database', data: { id: 'sample_column_id3' }}, { label: 'Column4', icon: 'pi pi-fw pi-database', data: { id: 'sample_column_id4' }}] },
+                { label: 'Table1', icon: 'pi pi-fw pi-table', command: () => insertMention('Table1'), items: [
+                    { label: 'Column1', icon: 'pi pi-fw pi-database', command: () => insertMention('Column1')},
+                    { label: 'Column2', icon: 'pi pi-fw pi-database', command: () => insertMention('Column2')}
+                ]},
+                { label: 'Table2', icon: 'pi pi-fw pi-table', command: () => insertMention('Table2'), items: [
+                    { label: 'Column3', icon: 'pi pi-fw pi-database', command: () => insertMention('Column3')},
+                    { label: 'Column4', icon: 'pi pi-fw pi-database', command: () => insertMention('Column4')}
+                ]},
             ]
         },
         {
             label: 'Database2',
             icon: 'pi pi-fw pi-sitemap',
-            data:  { id: 'sample_database_id2' },
+            command: () => handleMenuClick({ label: 'Database2' }, true),
             items: [
-                { label: 'Table1', icon: 'pi pi-fw pi-table', items: [{ label: 'Column5', icon: 'pi pi-fw pi-database', data: { id: 'sample_column_id5' }}, { label: 'Column6', icon: 'pi pi-fw pi-database', data: { id: 'sample_column_id6' }}] },
-                { label: 'Table2', icon: 'pi pi-fw pi-table', items: [{ label: 'Column7', icon: 'pi pi-fw pi-database', data: { id: 'sample_column_id7' }}, { label: 'Column7', icon: 'pi pi-fw pi-database', data: { id: 'sample_column_id8' }}] },
+                { label: 'Table3', icon: 'pi pi-fw pi-table', command: () => insertMention('Table3'), items: [
+                    { label: 'Column5', icon: 'pi pi-fw pi-database', command: () => insertMention('Column5')},
+                    { label: 'Column6', icon: 'pi pi-fw pi-database', command: () => insertMention('Column6')}
+                ]},
+                { label: 'Table4', icon: 'pi pi-fw pi-table', command: () => insertMention('Table4'), items: [
+                    { label: 'Column7', icon: 'pi pi-fw pi-database', command: () => insertMention('Column7')},
+                    { label: 'Column8', icon: 'pi pi-fw pi-database', command: () => insertMention('Column8')}
+                ]},
             ]
         }
     ];
