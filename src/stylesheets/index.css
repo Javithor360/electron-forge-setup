@@ -13,8 +13,10 @@
 }
 
 .mention-highlight {
-  background-color: yellow; /* O el color que prefieras */
+  background-color: yellow;
   font-weight: bold;
   padding: 2px 4px;
   border-radius: 3px;
+  user-select: none;
+  cursor: not-allowed;
 }

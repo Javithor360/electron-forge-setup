@@ -27,6 +27,9 @@ const Sidebar = () => {
             case 'child2-1':
                 navigate('/custom-mention');
                 break;
+            case 'child2-2':
+                navigate('/text-editor');
+                break;
             default:
                 break;
         }
@@ -68,6 +71,11 @@ const Sidebar = () => {
                         {
                             key: 'child2-1',
                             label: 'Custom Mention',
+                            icon: 'pi pi-fw pi-file'
+                        },
+                        {
+                            key: 'child2-2',
+                            label: 'Text Editor',
                             icon: 'pi pi-fw pi-file'
                         }
                     ]

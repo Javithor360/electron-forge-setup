@@ -7,6 +7,7 @@ import DraggableElements from './DraggableElements'
 import MentionSample from './MentionSample'
 import MentionMenu from './MentionMenu'
 import CustomMention from './Extra/CustomMention'
+import StyleComponentEditor from './Extra/StyledComponentsEditor'
 
 const App = () => {
     return (
@@ -19,6 +20,7 @@ const App = () => {
                     <Route path='/mention' element={<MentionSample />} />
                     <Route path='/mention-explorer-menu' element={<MentionMenu />} />
                     <Route path='/custom-mention' element={<CustomMention />} />
+                    <Route path='/text-editor' element={<StyleComponentEditor />} />
                 </Route>
             </Routes>
         </HashRouter>
