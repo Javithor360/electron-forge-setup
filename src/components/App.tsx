@@ -8,6 +8,7 @@ import MentionSample from './MentionSample'
 import MentionMenu from './MentionMenu'
 import CustomMention from './Extra/CustomMention'
 import StyleComponentEditor from './Extra/StyledComponentsEditor'
+import FinalMention from './Extra/FinalMention'
 
 const App = () => {
     return (
@@ -21,6 +22,7 @@ const App = () => {
                     <Route path='/mention-explorer-menu' element={<MentionMenu />} />
                     <Route path='/custom-mention' element={<CustomMention />} />
                     <Route path='/text-editor' element={<StyleComponentEditor />} />
+                    <Route path='/final-mention' element={<FinalMention />} />
                 </Route>
             </Routes>
         </HashRouter>
