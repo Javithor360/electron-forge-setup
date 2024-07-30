@@ -3,34 +3,14 @@ import { Editor } from 'primereact/editor';
 import { useRef, useState, useEffect } from 'react';
 import Quill from 'quill';
 import { Delta } from 'quill/core';
-
-// Creating a custom Blot for the mention (maybe this could be defined outside)
-class MentionBlot extends (Quill.import('blots/inline') as any) {
-    static create(value: any) {
-        const node = super.create() as HTMLElement;
-        node.setAttribute('data-props', JSON.stringify(value)); // Store the custom data in the element
-        node.setAttribute('class', 'mention-highlight'); // Add a class for unique styling
-        node.setAttribute('contenteditable', 'false'); // Avoid edit content
-        node.textContent = value.content; // Set the text content
-        return node;
-    }
-
-    static formats(node: HTMLElement) {
-        const data = node.getAttribute('data-props'); // Retrieve the custom data from the element
-        return data ? JSON.parse(data) : {};
-    }
-}
-
-MentionBlot.blotName = 'mention'; // Define the name of the custom blot
-MentionBlot.tagName = 'span'; // Define the tag name for the custom blot
-Quill.register(MentionBlot); // Register the custom blot
+import MentionBlot from '../util/MentionBlot';
 
 const StyleComponentEditor = () => {
-    const [text, setText] = useState('');
     const editorRef = useRef<Editor>(null);
 
     // Add a matcher to the clipboard module to handle the copy-paste of the custom elements
     useEffect(() => {
+        Quill.register(MentionBlot); // Register the custom blot
         const editor = editorRef.current?.getQuill();
         if (editor) {
             editor.clipboard.addMatcher('SPAN', (node: HTMLElement, delta: Delta) => {
@@ -49,7 +29,7 @@ const StyleComponentEditor = () => {
     // Function to insert a styled element in the editor
     const insertStyledElement = (dataObject: any, content: string) => {
         const editor = editorRef.current?.getQuill(); // Get the Quill instance from the Editor component
-        if (editor) {
+        if (editor /* && editor.hasFocus() */) {
             const selection = editor.getSelection(); // Get the current selection
             if (selection) {
                 const range = selection.index; // Determine the position of the cursor
@@ -68,9 +48,6 @@ const StyleComponentEditor = () => {
 
                 // Move the cursor after the space
                 editor.setSelection(range + content.length + 1, Quill.sources.SILENT);
-
-                // Update the text state
-                setText(editor.root.innerHTML);
             }
         }
     };
@@ -91,7 +68,7 @@ const StyleComponentEditor = () => {
 
     return (
         <div>
-            <Editor ref={editorRef} value={text} onTextChange={(e) => setText(e.htmlValue as string)} showHeader={false} formats={['mention']} />
+            <Editor ref={editorRef} style={{ width: '100%' }}  onTextChange={(e) => {/* No operation */}} showHeader={false} formats={['mention']} />
             <div className="flex gap-8 mt-4">
                 <Button onClick={() => insertStyledElement({ id: 1, name: 'Test1', uuid: '1234' }, '@Test1')}>Insertar Texto 1</Button>
                 <Button severity="warning" onClick={() => insertStyledElement({ id: 2, name: 'Test2', uuid: '5678' }, '@Test2')}>Insertar Texto 2</Button>
